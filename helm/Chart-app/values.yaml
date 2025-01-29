@@ -1,0 +1,14 @@
+postgres:
+  image: postgres:13-alpine
+  POSTGRES_PASSWORD: cGFzc3!dvcmQ # Replace with your real password
+  POSTGRES_DB: tutorial-dev
+  POSTGRES_USER: vinhle
+
+app:
+  port: 3003
+  image: xxja7xx/diplom-sf
+  environment:
+    DB_HOST: db
+    DB_NAME: tutorial-dev
+    DB_USER: vinhle
+    DB_PASS: cGFzc3!dvcmQ # This password can also be stored in a secret and used from the secret

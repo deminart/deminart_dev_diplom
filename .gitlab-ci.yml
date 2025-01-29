@@ -1,0 +1,14 @@
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  script:
+    - docker build -t myapp .
+    - docker push myapp:latest
+
+deploy:
+  stage: deploy
+  script:
+    - kubectl apply -f k8s/deployment.yaml

@@ -1,0 +1,34 @@
+- hosts: srv
+  become: yes
+
+  tasks:
+    - name: Add Docker GPG apt Key
+      ansible.builtin.apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker Repository
+      ansible.builtin.apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu jammy stable
+        state: present
+
+    - name: Update apt and install docker-ce
+      ansible.builtin.apt:
+        name: docker-ce
+        state: latest
+        update_cache: true
+
+    - name: Install containerd
+      ansible.builtin.apt:
+        name: containerd.io
+        state: latest
+
+    - name: Enable docker-ce
+      ansible.builtin.service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Add Jenkins user to Docker group
+      ansible.builtin.command:
+        cmd: usermod -aG docker jenkins
