@@ -1,0 +1,18 @@
+global:
+  resolve_timeout: 5m
+
+route:
+  group_by: ['alertname']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 1h
+  receiver: 'telegram'
+
+receivers:
+  - name: 'telegram'
+    telegram_configs:
+      - send_resolved: true
+        chat_id: -4631378425
+        bot_token: '7931614668:AAHi3sDYUiNNlPnnUwfV7bjPdL2A1R_X9gE'
+        api_url: 'https://api.telegram.org'
+        message: "Alert with special characters: \\- this is a dash and should be escaped"
